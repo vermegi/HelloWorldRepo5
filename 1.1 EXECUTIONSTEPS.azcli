@@ -1,0 +1,178 @@
+###########
+## 1.1 Intro to DevOps
+###########
+
+mkdir myWebApp5
+cd myWebApp5
+
+#git config --global init.defaultBranch main
+
+git init
+
+git config --global user.name "Gitte Vermeiren"
+git config --global user.email "gitte.vermeiren@gmail.com"
+
+# In case you are behind a proxy, you can set the proxy settings for git as follows:
+# git config --global http.proxy
+# http://proxyUsername:proxyPassword@proxy.server.com:port
+
+dotnet new mvc
+
+dotnet build
+dotnet run
+
+git status
+# notice bin and obj directories are also in the output list, we don't want to track those in git, so we will add them to a .gitignore file
+# Select a file in the bin folder -- F1 > Git: Add to .gitignore
+# Notice file counter goes down in Git
+git status
+
+# ask GH copilot to create a standard .gitignore file for a .NET MVC project
+
+git add .
+git commit -m "Initial commit of my Web App"
+
+git branch --list
+
+git branch feature-devops-home-page
+git status
+git branch --list
+git checkout feature-devops-home-page
+git status
+git branch --list
+
+# Make changes to the home page, for example by changing the text in the Index.cshtml file
+#################
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://azure.microsoft.com/services/devops/">Azure DevOps</a>.</p>
+</div>
+
+##################
+
+git status
+git add .
+git commit -m "updated welcome page."
+git status
+
+git checkout main
+git merge feature-devops-home-page
+
+git branch --delete feature-devops-home-page
+git branch --list
+
+git log -v
+git log -p
+
+# Do not execute!!!
+# git reset --hard fe6b9b301cb98f3127a92a313635ea7a163e9fd3
+
+# code .
+
+###########
+# VC with Azure DevOps
+###########
+
+# Create a new repository in Azure DevOps and copy the URL for cloning
+
+cd ..
+mkdir myWebAppAZDORepo
+cd myWebAppAZDORepo
+
+git clone https://MCAPSGitteDemo@dev.azure.com/MCAPSGitteDemo/Full%20Demo%20Project/_git/vcDemo
+
+cd vcDemo
+
+dotnet new mvc
+
+git status
+git add .
+git commit -m "Initial commit of my Web App in Azure DevOps Repo"
+
+git status
+git push 
+
+git branch feature-devops-home-page
+git checkout feature-devops-home-page
+
+# Make changes to the home page, for example by changing the text in the Index.cshtml file
+#################
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://azure.microsoft.com/services/devops/">Azure DevOps</a>.</p>
+</div>
+
+##################
+
+git status
+git add .
+git commit -m "updated welcome page."
+git status
+
+# This will not work, since there is no upstream branch for the feature branch, we will need to set that first
+git push 
+
+git push --set-upstream origin feature-devops-home-page
+
+# Create new PR in Azure DevOps and complete it, merging the feature branch into main
+
+
+###########
+# VC with GitHub
+###########
+
+# Create a new repository in Azure DevOps and copy the URL for cloning
+
+cd ../..
+mkdir myWebAppGHRepo
+cd myWebAppGHRepo
+
+git clone https://github.com/vermegi/ghvcDemo.git
+
+cd ghvcDemo
+
+dotnet new mvc
+
+git status
+git add .
+git commit -m "Initial commit of my Web App in Azure DevOps Repo"
+
+git status
+git push 
+
+git branch feature-devops-home-page
+git checkout feature-devops-home-page
+
+# Make changes to the home page, for example by changing the text in the Index.cshtml file
+#################
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://azure.microsoft.com/services/devops/">Azure DevOps</a>.</p>
+</div>
+
+##################
+
+git status
+git add .
+git commit -m "updated welcome page."
+git status
+
+# This will not work, since there is no upstream branch for the feature branch, we will need to set that first
+git push 
+
+git push --set-upstream origin feature-devops-home-page
+
+# Create new PR in GH and complete it, merging the feature branch into main
+
